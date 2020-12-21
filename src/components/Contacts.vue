@@ -1,8 +1,14 @@
 
 <template>
   <div>
-        <Contact v-for="contact in contacts" :key=contact.id 
-                 :id=contact.id :name="contact.name" :email="contact.email" :mobile="contact.mobile" :contacted="contact.contacted" />
+        <Contact v-for="contact in contacts" 
+                 :key=contact.id 
+                 :id=contact.id 
+                 :name="contact.name" 
+                 :email="contact.email" 
+                 :mobile="contact.mobile" 
+                 :contacted="contact.contacted" 
+                 />
   </div>
 </template>
 
