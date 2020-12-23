@@ -7,8 +7,11 @@
                  :name="contact.name" 
                  :email="contact.email" 
                  :mobile="contact.mobile" 
-                 :contacted="contact.contacted" 
+                 :contacted="contact.contacted"
+                 @onChangeContactStatus="displaySelectedName"
                  />
+      <hr />
+      <h3>Selected Name : {{selectedName || 'Nothing Selected'}}</h3>
   </div>
 </template>
 
@@ -19,6 +22,7 @@ export default {
   name: 'Contacts',
   data(){
       return {
+          selectedName: '',
           contacts: [
             {
                 id: 101,
@@ -47,6 +51,10 @@ export default {
       }
   },
   methods: {  
+      displaySelectedName:function(name){
+          console.log(name);
+          this.selectedName = name
+      } 
   },
   components: {
     Contact
