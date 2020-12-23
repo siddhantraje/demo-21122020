@@ -1,5 +1,5 @@
 <template>
-    <div class="container">
+    <div>
         <div class="row">
             <Contact  v-for="contact in contacts" class="col-lg-4"
                      :key=contact.id 

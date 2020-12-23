@@ -6,11 +6,17 @@
                 <div class="form-group">
                     <label>Name</label>
                     <input type="text" class="form-control" placeholder="Enter Name" v-model="name">
+                    <span class="text-danger" v-if="errors.name">{{errors.name}}</span>
+                    <br>
                     <label>Email</label>
                     <input type="text" class="form-control" placeholder="Enter Email"  v-model="email">
+                    <span class="text-danger" v-if="errors.email">{{errors.email}}</span>
+                    <br>
                     <label>Mobile</label>
                     <input type="text" class="form-control" placeholder="Enter Mobile"  v-model="mobile">
-                    <button type="button" @click="submit" class="btn btn-success">Submit</button>
+                    <span class="text-danger" v-if="errors.mobile">{{errors.mobile}}</span>
+                    <br>
+                    <button type="button" @click="validateForm" class="btn btn-success">Submit</button>
                 </div>                
             </form>
         </div>
@@ -37,17 +43,49 @@ name: 'SignUpForm',
             name: '',
             email: '',
             mobile: '',
-            persons: []
+            persons: [],
+            errors: {
+                name: '',
+                email: '',
+                mobile: '',
+            }
         }
     },
     methods: {
-        submit(e){
-        e.preventDefault();
-        console.log(this.name, this.mobile);
-            let person = { name: this.name || 'Not Provided', email: this.email || 'Not Provided', mobile: this.mobile || 'Not Provided' }
+        submitForm(){
+            let person = { name: this.name.trim(), email: this.email, mobile: this.mobile }
             this.persons.push(person);
         this.resetForm();
     },
+        validateForm(e){
+            let emailRegEx = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
+            let mobileRegEx = /^[789]\d{9}$/
+            e.preventDefault();
+            this.errors = {
+                name: '',
+                email: '',
+                mobile: '',
+            }
+            if(this.name.trim().length === 0){
+                this.errors.name="Name is required";
+            }
+            if(!this.email){
+                this.errors.email="Email is required";
+            }
+            if(!this.mobile){
+                this.errors.mobile="Mobile is required";
+            }
+            if(this.email && !emailRegEx.test(this.email)){
+                this.errors.email="Enter Valid Email"
+            }
+            if(this.mobile && !mobileRegEx.test(this.mobile)){
+                this.errors.mobile="Enter 10 digit Valid Mobile Number"
+            }
+            if(!this.errors.name && !this.errors.email && !this.errors.mobile){
+                if(confirm("Do you want to submit the Data ?"))
+                this.submitForm();                    
+            }
+        },
         resetForm(){
                 this.name = '';
                 this.email = '';
