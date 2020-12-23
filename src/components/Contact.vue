@@ -5,10 +5,6 @@
         <h4 v-if="email"> Email : {{email}}</h4>
         <h4 v-if="mobile">Mobile : {{mobile}}</h4>
         <span>
-<!--
-            <button v-if="!this.isContacted" @click="changeContactStatus">Contact Now</button>
-            <button v-else @click="changeContactStatus">Remind to Contact Again</button>
--->
         <label>Contacted</label>
        <input type="checkbox" 
               :checked="this.isContacted"

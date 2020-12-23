@@ -1,63 +1,43 @@
-
 <template>
-  <div>
-        <Contact v-for="contact in contacts" 
-                 :key=contact.id 
-                 :id=contact.id 
-                 :name="contact.name" 
-                 :email="contact.email" 
-                 :mobile="contact.mobile" 
-                 :contacted="contact.contacted"
-                 @onChangeContactStatus="displaySelectedName"
-                 />
-      <hr />
-      <h3>Selected Name : {{selectedName || 'Nothing Selected'}}</h3>
+    <div class="container">
+        <div class="row">
+            <Contact  v-for="contact in contacts" class="col-lg-4"
+                     :key=contact.id 
+                     :id=contact.id 
+                     :name="contact.name" 
+                     :email="contact.email" 
+                     :mobile="contact.mobile" 
+                     :contacted="contact.contacted"
+                     @onChangeContactStatus="displaySelectedName"
+                     />
+          </div>
+      <ContactedList class="col-lg-4" :selectedNames="selectedNames"/>
   </div>
 </template>
 
 <script>
-import Contact from './Contact.vue'
+import Contact from './Contact.vue';
+import ContactedList from './ContactedList.vue';
+import { CONTACTS_INFO } from './sharedData/contactsInfo.js'
 
 export default {
   name: 'Contacts',
   data(){
       return {
-          selectedName: '',
-          contacts: [
-            {
-                id: 101,
-                name: "Siddhant",
-                email: "siddhant@gmail.com",
-                mobile: "999999999",
-                contacted: true
-            },
-            {
-                id: 102,
-                name: "Sachin",
-                contacted: false
-            },
-            {
-                id: 103,
-                name: "Bismay",
-                mobile: "1111111111",
-                contacted: false
-            },
-            {
-                id: 104,
-                email: "anadi@gmail.com",
-                contacted: false
-            },
-          ]
+          selectedNames: [] ,
+          contacts: CONTACTS_INFO
+          
       }
   },
   methods: {  
       displaySelectedName:function(name){
-          console.log(name);
-          this.selectedName = name
+          this.selectedName = name || 'Name not Provided'
+          this.selectedNames.push(this.selectedName);
       } 
   },
   components: {
-    Contact
+    Contact,
+    ContactedList
   }
   
 }
