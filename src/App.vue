@@ -1,12 +1,14 @@
 
 <template>
-  <div id="app">
+  <div id="app" class="container">
     <Contacts />
+    <SignUpForm />
   </div>
 </template>
 
 <script>
-import Contacts from './components/Contacts.vue'
+import Contacts from './components/Contacts.vue';
+import SignUpForm from './components/SignUpForm'
 
 export default {
   name: 'App',
@@ -19,7 +21,8 @@ export default {
   methods: {  
   },
   components: {
-    Contacts
+    Contacts,
+    SignUpForm
   }
   
 }
